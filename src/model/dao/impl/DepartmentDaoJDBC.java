@@ -48,7 +48,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
     }
 
     @Override
-    public String update(Department obj) {
+    public void update(Department obj) {
         PreparedStatement st = null;
 
         try {
@@ -59,10 +59,8 @@ public class DepartmentDaoJDBC implements DepartmentDao {
             st.setInt(2, obj.getId());
 
             int rowsAffected = st.executeUpdate();
-            if (rowsAffected > 0){
-                return "rows affected: " + rowsAffected;
-            }else{
-                return "no rows affected";
+            if (rowsAffected == 0) {
+                throw new SQLException("Id not found.");
             }
 
         } catch (SQLException e) {
@@ -75,7 +73,23 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM department WHERE department.Id = ?");
+            st.setInt(1, id);
 
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new DbException("Id not found. ");
+
+            }
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override

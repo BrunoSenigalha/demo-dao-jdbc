@@ -35,9 +35,11 @@ public class Main2 {
 
         System.out.println("\n=== TEST 4 : department update===");
         dep = new Department(7, "Test");
-        String resultMessage = departmentDao.update(dep);
-        System.out.println(resultMessage);
+        departmentDao.update(dep);
 
         System.out.println("\n=== TEST 5 : department delete===");
+        System.out.println("Enter id to delete test");
+        int id = sc.nextInt();
+        departmentDao.deleteById(id);
     }
 }
