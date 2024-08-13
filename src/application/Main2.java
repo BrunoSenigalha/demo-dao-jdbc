@@ -22,15 +22,22 @@ public class Main2 {
         }
 
         System.out.println("\n=== TEST 2 : department findById ===");
-        System.out.println("Enter for id to find test: ");
-        int id = sc.nextInt();
-        Department dep = departmentDao.findById(id);
+//        System.out.println("Enter for id to find test: ");
+//        int id = sc.nextInt();
+        Department dep = departmentDao.findById(3);
         System.out.println(dep);
 
         System.out.println("\n=== TEST 3 : department insert===");
-        System.out.println("Enter the name of department to insert");
-        String depName = sc.next();
-        dep = new Department(null, depName);
+//        System.out.println("Enter the name of department to insert");
+//        String depName = sc.next();
+        dep = new Department(null, "Kitchen");
         departmentDao.insert(dep);
+
+        System.out.println("\n=== TEST 4 : department update===");
+        dep = new Department(7, "Test");
+        String resultMessage = departmentDao.update(dep);
+        System.out.println(resultMessage);
+
+        System.out.println("\n=== TEST 5 : department delete===");
     }
 }
